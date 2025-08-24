@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://expense_tracker_bg4j_user:hnd8HPBESRODC0b9hVyfztCaVElxqdqn@dpg-d2kok6jipnbc73fcj0f0-a.oregon-postgres.render.com/expense_tracker_bg4j
+    networks:
+      - app-network
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8501:8501"
+    environment:
+      - BACKEND_URL=http://backend:8000
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
